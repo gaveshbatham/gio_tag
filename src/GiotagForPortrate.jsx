@@ -87,7 +87,7 @@ const GeoTaggedPortrate = ({ image1, image2, textLocation, time, lat, long, pinc
         </div>
 
         <div 
-          className="absolute bottom-20 right-2 w-18 h-4 text-white text-sm px-3 py-1 z-20"
+          className="absolute bottom-20.5 right-2 w-18 h-4 text-white text-sm px-3 py-1 z-20"
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.62)' }}
         >
           <img

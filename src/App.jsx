@@ -20,6 +20,31 @@ function App() {
   const [latError, setLatError] = useState('');
   const [longError, setLongError] = useState('');
 
+  // Reset function to clear all fields
+  const handleReset = () => {
+    setImage1(null);
+    setImage2(null);
+    setTextLocation('');
+    setDate('');
+    setTime('');
+    setLat('');
+    setLong('');
+    setPincode('');
+    setPlusCode('');
+    setImage1Dim({width: 0, height: 0});
+    
+    // Clear validation errors
+    setPincodeError('');
+    setLatError('');
+    setLongError('');
+    
+    // Clear file inputs
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+      input.value = '';
+    });
+  };
+
   // Function to convert 24-hour time to 12-hour AM/PM format
   const formatTimeAMPM = (time24) => {
     if (!time24) return '';
@@ -117,7 +142,21 @@ function App() {
   return (
     <div className="px-6 flex space-x-8 min-h-screen max-h-screen overflow-hidden">
       {/* Left: Input Form */}
-      <div className="flex-1 max-w-xs space-y-4 max-h-screen py-4">
+      <div className="flex-1 max-w-xs space-y-4 max-h-screen py-4 overflow-auto">
+        
+        {/* Reset Button */}
+        <div className="mb-4">
+          <button
+            onClick={handleReset}
+            className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Reset All Fields
+          </button>
+        </div>
+
         <div className="space-y-2">
           <label className="block text-sm font-medium text-white">
             Upload Main Image *
