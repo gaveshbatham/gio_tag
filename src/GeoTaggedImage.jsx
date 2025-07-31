@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import appLogo from './assets/app_logo.png'; // Use import for local asset
 
-const GeoTaggedImage = ({ image1, image2, textLocation, time, lat, long, pincode, plus_code }) => {
+const GeoTaggedLandScape = ({ image1, image2, textLocation, time, lat, long, pincode, plus_code }) => {
   const captureRef = useRef(null);
   const [imgReady, setImgReady] = useState(false);
 
@@ -93,4 +93,4 @@ const GeoTaggedImage = ({ image1, image2, textLocation, time, lat, long, pincode
   );
 };
 
-export default GeoTaggedImage;
+export default GeoTaggedLandScape;

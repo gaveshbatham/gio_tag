@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import GeoTaggedLandScape from 'src/GeoTaggedImage.jsx';
-import GeoTaggedPortrate from 'src/GiotagForPortrate.jsx';
+import GeoTaggedLandScape from './GeoTaggedImage.jsx';
+import GeoTaggedPortrate from './GiotagForPortrate.jsx';
 
 function App() {
   const [image1, setImage1] = useState(null);
