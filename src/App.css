@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Add to your App.css or component CSS */
+.bg-black-62 {
+  background-color: rgba(0, 0, 0, 0.62);
+}
