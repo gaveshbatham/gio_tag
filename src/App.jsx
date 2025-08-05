@@ -1,101 +1,101 @@
-import { useState } from 'react';
-import './App.css';
-import GeoTaggedLandScape from './GeoTaggedImage.jsx';
-import GeoTaggedPortrate from './GiotagForPortrate.jsx';
+import { useState } from "react";
+import "./App.css";
+import GeoTaggedLandScape from "./GeoTaggedImage.jsx";
+import GeoTaggedPortrate from "./GiotagForPortrate.jsx";
 
 function App() {
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
-  const [textLocation, setTextLocation] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [lat, setLat] = useState('');
-  const [long, setLong] = useState('');
-  const [pincode, setPincode] = useState('');
-  const [plusCode, setPlusCode] = useState('');
-  const [image1Dim, setImage1Dim] = useState({width: 0, height: 0});
-  
+  const [textLocation, setTextLocation] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [plusCode, setPlusCode] = useState("");
+  const [image1Dim, setImage1Dim] = useState({ width: 0, height: 0 });
+
   // Validation states
-  const [pincodeError, setPincodeError] = useState('');
-  const [latError, setLatError] = useState('');
-  const [longError, setLongError] = useState('');
+  const [pincodeError, setPincodeError] = useState("");
+  const [latError, setLatError] = useState("");
+  const [longError, setLongError] = useState("");
 
   // Reset function to clear all fields
   const handleReset = () => {
     setImage1(null);
     setImage2(null);
-    setTextLocation('');
-    setDate('');
-    setTime('');
-    setLat('');
-    setLong('');
-    setPincode('');
-    setPlusCode('');
-    setImage1Dim({width: 0, height: 0});
-    
+    setTextLocation("");
+    setDate("");
+    setTime("");
+    setLat("");
+    setLong("");
+    setPincode("");
+    setPlusCode("");
+    setImage1Dim({ width: 0, height: 0 });
+
     // Clear validation errors
-    setPincodeError('');
-    setLatError('');
-    setLongError('');
-    
+    setPincodeError("");
+    setLatError("");
+    setLongError("");
+
     // Clear file inputs
     const fileInputs = document.querySelectorAll('input[type="file"]');
-    fileInputs.forEach(input => {
-      input.value = '';
+    fileInputs.forEach((input) => {
+      input.value = "";
     });
   };
 
   // Function to convert 24-hour time to 12-hour AM/PM format
   const formatTimeAMPM = (time24) => {
-    if (!time24) return '';
-    
-    const [hours, minutes] = time24.split(':');
+    if (!time24) return "";
+
+    const [hours, minutes] = time24.split(":");
     const hour12 = parseInt(hours);
-    const ampm = hour12 >= 12 ? 'PM' : 'AM';
+    const ampm = hour12 >= 12 ? "PM" : "AM";
     const displayHour = hour12 % 12 || 12; // Convert 0 to 12 for midnight
-    
+
     return `${displayHour}:${minutes} ${ampm}`;
   };
 
   // Validation functions
   const validatePincode = (value) => {
-    if (value === '') {
-      setPincodeError('');
+    if (value === "") {
+      setPincodeError("");
       return true;
     }
     if (!/^\d{6}$/.test(value)) {
-      setPincodeError('Pincode must be 6 digits');
+      setPincodeError("Pincode must be 6 digits");
       return false;
     }
-    setPincodeError('');
+    setPincodeError("");
     return true;
   };
 
   const validateLatitude = (value) => {
-    if (value === '') {
-      setLatError('');
+    if (value === "") {
+      setLatError("");
       return true;
     }
     const num = parseFloat(value);
     if (isNaN(num) || num < -90 || num > 90) {
-      setLatError('Latitude must be between -90 and 90');
+      setLatError("Latitude must be between -90 and 90");
       return false;
     }
-    setLatError('');
+    setLatError("");
     return true;
   };
 
   const validateLongitude = (value) => {
-    if (value === '') {
-      setLongError('');
+    if (value === "") {
+      setLongError("");
       return true;
     }
     const num = parseFloat(value);
     if (isNaN(num) || num < -180 || num > 180) {
-      setLongError('Longitude must be between -180 and 180');
+      setLongError("Longitude must be between -180 and 180");
       return false;
     }
-    setLongError('');
+    setLongError("");
     return true;
   };
 
@@ -106,7 +106,7 @@ function App() {
       setImage(url);
       if (setDim) {
         const img = new window.Image();
-        img.onload = () => setDim({width: img.width, height: img.height});
+        img.onload = () => setDim({ width: img.width, height: img.height });
         img.src = url;
       }
     }
@@ -114,7 +114,7 @@ function App() {
 
   const handlePincodeChange = (e) => {
     const value = e.target.value;
-    const digitsOnly = value.replace(/\D/g, '');
+    const digitsOnly = value.replace(/\D/g, "");
     const limitedValue = digitsOnly.slice(0, 6);
     setPincode(limitedValue);
     validatePincode(limitedValue);
@@ -135,23 +135,33 @@ function App() {
   const isPortrait = image1Dim.height > image1Dim.width;
 
   // Combine date and time for overlay with AM/PM format
-  const formattedDateTime = date && time
-    ? `${date.split('-').reverse().join('/')} ${formatTimeAMPM(time)}`
-    : '';
+  const formattedDateTime =
+    date && time
+      ? `${date.split("-").reverse().join("/")} ${formatTimeAMPM(time)}`
+      : "";
 
   return (
     <div className="px-6 flex space-x-8 min-h-screen max-h-screen overflow-hidden">
       {/* Left: Input Form */}
       <div className="flex-1 max-w-xs space-y-4 max-h-screen py-4 overflow-auto">
-        
         {/* Reset Button */}
         <div className="mb-4">
           <button
             onClick={handleReset}
             className="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              ></path>
             </svg>
             Reset All Fields
           </button>
@@ -170,10 +180,20 @@ function App() {
             />
             {image1 && (
               <div className="mt-2 flex items-center text-xs text-green-600">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
-                Image uploaded ({isPortrait ? 'Portrait' : 'Landscape'})
+                Image uploaded ({isPortrait ? "Portrait" : "Landscape"})
               </div>
             )}
           </div>
@@ -193,8 +213,18 @@ function App() {
             />
             {image2 && (
               <div className="mt-2 flex items-center text-xs text-green-600">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-4 h-4 mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
                 Logo uploaded
               </div>
@@ -242,10 +272,14 @@ function App() {
           <label>Latitude</label>
           <input
             type="text"
-            className={`border px-3 py-1 rounded w-full ${latError ? 'border-red-500' : ''}`}
+            className={`border px-3 py-1 rounded w-full ${
+              latError ? "border-red-500" : ""
+            }`}
             value={lat}
             onChange={handleLatChange}
             placeholder="e.g., 12.9716"
+            minLength={9}
+            maxLength={9}
           />
           {latError && <p className="text-red-500 text-xs">{latError}</p>}
         </div>
@@ -254,10 +288,14 @@ function App() {
           <label>Longitude</label>
           <input
             type="text"
-            className={`border px-3 py-1 rounded w-full ${longError ? 'border-red-500' : ''}`}
+            className={`border px-3 py-1 rounded w-full ${
+              longError ? "border-red-500" : ""
+            }`}
             value={long}
             onChange={handleLongChange}
             placeholder="e.g., 77.5946"
+            minLength={9}
+            maxLength={9}
           />
           {longError && <p className="text-red-500 text-xs">{longError}</p>}
         </div>
@@ -266,13 +304,17 @@ function App() {
           <label>Pincode</label>
           <input
             type="text"
-            className={`border px-3 py-1 rounded w-full ${pincodeError ? 'border-red-500' : ''}`}
+            className={`border px-3 py-1 rounded w-full ${
+              pincodeError ? "border-red-500" : ""
+            }`}
             value={pincode}
             onChange={handlePincodeChange}
             placeholder="e.g., 560001"
             maxLength="6"
           />
-          {pincodeError && <p className="text-red-500 text-xs">{pincodeError}</p>}
+          {pincodeError && (
+            <p className="text-red-500 text-xs">{pincodeError}</p>
+          )}
         </div>
 
         <div className="space-y-2">
