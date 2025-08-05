@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import appLogo from "./assets/app_logo.png";
+import pin from './assets/pin.png';
 
 const GeoTaggedPortrate = ({ image1, image2, textLocation, time, lat, long, pincode, plus_code }) => {
   const captureRef = useRef(null);
@@ -49,13 +50,30 @@ const GeoTaggedPortrate = ({ image1, image2, textLocation, time, lat, long, pinc
         />
 
         {image2 && (
-          <div>
+          <div className="relative">
             <img
               src={image2}
               alt="Overlay"
               crossOrigin="anonymous"
               className="absolute bottom-1.5 left-2 w-19 aspect-square object-cover opacity-80 z-20"
-            />
+            /> 
+
+{/* Pin centered over the image */}
+    <div className="absolute bottom-11 left-4.5 w-14 h-auto z-30 pointer-events-none">
+      <div className="relative w-full h-full">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <img
+            src={pin}
+            alt="Map Pin"
+            className="w-4 h-4"
+          />
+        </div>
+      </div>
+    </div>
+
+
+
+
             <div
               className="absolute bottom-2.5 left-3.5 text-[11.3px] text-white z-30"
               style={{

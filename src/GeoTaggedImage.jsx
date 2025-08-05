@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import appLogo from './assets/app_logo.png'; // Use import for local asset
+import pin from './assets/pin.png';
+
+
 
 const GeoTaggedLandScape = ({ image1, image2, textLocation, time, lat, long, pincode, plus_code }) => {
   const captureRef = useRef(null);
@@ -35,23 +38,41 @@ const GeoTaggedLandScape = ({ image1, image2, textLocation, time, lat, long, pin
           className="w-[400px] h-auto object-contain rounded-xl"
         />
         {image2 && (
-          <div>
-            <img
-              src={image2}
-              alt="Overlay"
-              crossOrigin="anonymous"
-              className="absolute bottom-1.5 left-10 w-14 object-contain opacity-80 z-20"
-            />
-            <div
-              className="absolute bottom-2 left-11 text-[9px] z-30"
-              style={{
-                textShadow: "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
-              }}
-            >
-              Google
-            </div>
-          </div>
-        )}
+  <div className="relative">
+    {/* Image */}
+    <img
+      src={image2}
+      alt="Overlay"
+      crossOrigin="anonymous"
+      className="absolute bottom-1.5 left-10 w-14 object-contain opacity-80 z-20"
+    />
+
+    {/* Pin centered over the image */}
+    <div className="absolute bottom-8 left-10 w-14 h-auto z-30 pointer-events-none">
+      <div className="relative w-full h-full">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <img
+            src={pin}
+            alt="Map Pin"
+            className="w-4 h-4"
+          />
+        </div>
+      </div>
+    </div>
+
+    {/* Label */}
+    <div
+      className="absolute bottom-2 left-11 text-[9px] z-30"
+      style={{
+        textShadow:
+          "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+      }}
+    >
+      Google
+    </div>
+  </div>
+)}
+
         <div className="absolute bottom-1.5 left-25 w-65 h-13.5  text-white text-sm px-1 py-1 z-20"
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.62)' }}
         
