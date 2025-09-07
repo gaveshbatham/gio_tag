@@ -38,17 +38,17 @@ const GeoTaggedLandScape = ({ image1, image2, textLocation, time, lat, long, pin
           className="w-[400px] h-auto object-contain rounded-xl"
         />
         {image2 && (
-  <div className="relative">
+  <div className="relative ">
     {/* Image */}
     <img
       src={image2}
       alt="Overlay"
       crossOrigin="anonymous"
-      className="absolute bottom-1.5 left-10 w-14 object-contain opacity-80 z-20"
+      className="absolute bottom-1.5 left-11 w-[50px]  object-contain opacity-80 z-20"
     />
 
     {/* Pin centered over the image */}
-    <div className="absolute bottom-8 left-10 w-14 h-auto z-30 pointer-events-none">
+    <div className="absolute bottom-9 left-10 w-14 h-auto z-30 pointer-events-none">
       <div className="relative w-full h-full">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <img
@@ -62,7 +62,7 @@ const GeoTaggedLandScape = ({ image1, image2, textLocation, time, lat, long, pin
 
     {/* Label */}
     <div
-      className="absolute bottom-2 left-11 text-[9px] z-30"
+      className="absolute bottom-2.5 left-11.5 text-[9px] z-30"
       style={{
         textShadow:
           "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
@@ -77,7 +77,7 @@ const GeoTaggedLandScape = ({ image1, image2, textLocation, time, lat, long, pin
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.62)' }}
         
         >
-          <div className="font-sans text-base text-[12.5px]">
+          <div className="font-sans text-base text-[12.5px] mt-0 ">
             {textLocation}
           </div>
           <div className="font-sans text-base text-[7.85px] mt-0 leading-[5px]">
